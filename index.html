@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shahi Mahal - Fine Indian Cuisine</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Cinzel+Decorative&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #800000;
+      --accent-color: #f4e1d2;
+      --bg-color: #fff8f0;
+      --text-color: #333;
+      --font-family: 'Cormorant Garamond', serif;
+      --accent-color2: #f9f9f93b;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px; /* Set base font size for consistent rendering */
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    header {
+      background: url("t1.avif") center/cover no-repeat;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 0;
+    }
+
+    header h1, header p {
+      position: relative;
+      font-family: "Cinzel Decorative", serif;
+      z-index: 1;
+      letter-spacing: 1.5px;
+      margin: 0.5em 0;
+    }
+
+    header h1 {
+      font-size: clamp(1.5rem, 3.5rem, 4rem);
+    }
+
+    header p {
+      font-size: clamp(0.9rem, 1.5rem, 1.8rem);
+    }
+
+    .logo {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      z-index: 2;
+      width: clamp(60px, 10vw, 160px);
+      height: auto;
+    }
+
+    /* NAVIGATION */
+    .nav-container {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: clamp(8px, 1.5vw, 12px);
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: clamp(0.85rem, 1rem, 1.2rem);
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-color);
+    }
+
+    /* HAMBURGER ICON */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 4px;
+    }
+
+    .hamburger div {
+      width: 22px;
+      height: 2px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* MOBILE MENU */
+    .nav-links-mobile {
+      display: none;
+      flex-direction: column;
+      background: var(--accent-color2);
+      width: clamp(120px, 35vw, 180px);
+      position: absolute;
+      accent-color: var(--primary-color);
+      top: 40px;
+      right: 0;
+      padding: 8px 0;
+      text-align: center;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .nav-links-mobile.show {
+      display: flex;
+    }
+
+    .nav-links-mobile a {
+      /* display: block; */
+      padding: 10px 0;
+      font-size: clamp(0.8rem, 1rem, 1.1rem);
+      color: #ffffff;
+      text-decoration:solid none;
+    }
+
+    .nav-links-mobile a:hover {
+      color: var(--accent-color);
+    }
+
+    /* SECTIONS */
+    section {
+      padding: clamp(20px, 4vw, 40px) clamp(10px, 2vw, 20px);
+      max-width: 1200px;
+      margin: auto;
+      animation: fadeIn 1s ease-in;
+      font-size: clamp(0.9rem, 1.1rem, 1.3rem);
+    }
+
+    h2 {
+      color: var(--primary-color);
+      margin-bottom: clamp(10px, 2vw, 20px);
+      text-align: center;
+      font-size: clamp(1.3rem, 1.8rem, 2rem);
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      padding: clamp(6px, 1vw, 8px); /* Reduced padding */
+      background-color: var(--accent-color);
+      margin: clamp(3px, 0.8vw, 5px) 0; /* Reduced margin */
+      border-radius: 5px;
+      font-size: clamp(0.75rem, 0.9rem, 1rem); /* Smaller font size */
+    }
+
+    /* Responsive Google Map */
+    .map-container {
+      position: relative;
+      padding-bottom: clamp(50%, 56.25%, 60%);
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .map-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    footer {
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: clamp(15px, 2.5vw, 20px);
+      font-size: clamp(0.8rem, 1rem, 1.1rem);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive Design */
+    /* Large Tablets and Small Laptops (1024px and below) */
+    @media (max-width: 1024px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-container {
+        top: 12px;
+        right: 12px;
+      }
+
+      .nav-links-mobile {
+        top: 40px;
+        width: clamp(110px, 30vw, 160px);
+      }
+
+      header h1 {
+        font-size: clamp(1.4rem, 3rem, 3.5rem);
+      }
+
+      header p {
+        font-size: clamp(0.85rem, 1.2rem, 1.5rem);
+      }
+
+      .logo {
+        width: clamp(50px, 8vw, 140px);
+        top: 12px;
+        left: 12px;
+      }
+
+      section {
+        padding: clamp(15px, 3.5vw, 30px) clamp(8px, 2vw, 15px);
+      }
+
+      h2 {
+        font-size: clamp(1.2rem, 1.6rem, 1.8rem);
+      }
+    }
+
+    /* Tablets and Large Mobiles (768px and below) */
+    @media (max-width: 768px) {
+      .nav-links-mobile {
+        width: clamp(100px, 40vw, 150px);
+        top: 38px;
+      }
+
+      .menu-item {
+        flex-direction: row; /* Keep items in a single line */
+        justify-content: space-between; /* Align dish and price */
+        align-items: center; /* Vertically center content */
+        text-align: left; /* Align text to the left */
+      }
+
+      .map-container {
+        padding-bottom: 70%;
+      }
+
+      header h1 {
+        font-size: clamp(1.3rem, 2.5rem, 3rem);
+      }
+
+      header p {
+        font-size: clamp(0.8rem, 1rem, 1.3rem);
+      }
+    }
+
+    /* Small Mobiles (480px and below) */
+    @media (max-width: 480px) {
+      .logo {
+        width: clamp(40px, 7vw, 100px);
+        top: 10px;
+        left: 10px;
+      }
+
+      .nav-container {
+        top: 10px;
+        right: 10px;
+      }
+
+      .nav-links-mobile {
+        width: clamp(90px, 45vw, 130px);
+        top: 35px;
+      }
+
+      header h1 {
+        font-size: clamp(1.2rem, 2rem, 2.5rem);
+      }
+
+      header p {
+        font-size: clamp(0.7rem, 0.9rem, 1.1rem);
+      }
+
+      h2 {
+        font-size: clamp(1.1rem, 1.4rem, 1.6rem);
+      }
+
+      .menu-item {
+        font-size: clamp(0.7rem, 0.85rem, 0.9rem); /* Further reduce font size */
+      }
+
+      .map-container {
+        padding-bottom: 80%;
+      }
+
+      footer {
+        font-size: clamp(0.7rem, 0.8rem, 0.9rem);
+      }
+    }
+
+    /* Extra Small Screens (360px and below) */
+    @media (max-width: 360px) {
+      .logo {
+        width: clamp(35px, 6vw, 80px);
+      }
+
+      .nav-links-mobile {
+        width: clamp(80px, 50vw, 120px);
+      }
+
+      header h1 {
+        font-size: clamp(1rem, 1.8rem, 2.2rem);
+      }
+
+      header p {
+        font-size: clamp(0.6rem, 0.8rem, 1rem);
+      }
+
+      section {
+        padding: clamp(10px, 3vw, 20px) clamp(5px, 2vw, 10px);
+      }
+
+      .menu-item {
+        font-size: clamp(0.65rem, 0.8rem, 0.85rem); /* Smallest font size */
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="tajmahal-header_wipe_bg.png" alt="Shahi Mahal Logo" class="logo" />
+    <div class="nav-container">
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#menu">Menu</a>
+        <a href="#heritage">Heritage</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="mobile-nav">
+        <div class="hamburger" onclick="toggleMenu()">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div class="nav-links-mobile" id="mobileMenu">
+          <a href="#about" onclick="toggleMenu()">About</a>
+          <a href="#menu" onclick="toggleMenu()">Menu</a>
+          <a href="#heritage" onclick="toggleMenu()">Heritage</a>
+          <a href="#contact" onclick="toggleMenu()">Contact</a>
+        </div>
+      </div>
+    </div>
+    <h1>Welcome to Shahi Mahal</h1>
+    <p>Authentic Indian Cuisine in Brantford</p>
+  </header>
+
+  <section id="about">
+    <h2>About the Experience</h2>
+    <p>Shahi Mahal offers a dining experience inspired by the grandeur of Mughal palaces. Located in Brantford, our restaurant invites you to explore a royal menu in a majestic setting.</p>
+  </section>
+
+  <section id="menu">
+    <h2>Our Menu</h2>
+    <div class="menu-item"><span>Paneer Biryani</span><span>$16</span></div>
+    <div class="menu-item"><span>Veg Pulao</span><span>$12</span></div>
+    <div class="menu-item"><span>Chicken Biryani</span><span>$18</span></div>
+    <div class="menu-item"><span>Lamb Biryani</span><span>$20</span></div>
+    <div class="menu-item"><span>Butter Chicken</span><span>$18</span></div>
+    <div class="menu-item"><span>Dal Makhani</span><span>$14</span></div>
+    <div class="menu-item"><span>Chicken 65</span><span>$12</span></div>
+    <div class="menu-item"><span>Samosa (2 pcs)</span><span>$6</span></div>
+  </section>
+
+  <section id="heritage">
+    <h2>Our Heritage</h2>
+    <p>At Shahi Mahal, we celebrate the rich culinary traditions of North India. Our master chefs use time-honored recipes and the finest ingredients to bring you dishes that honor generations of flavor.</p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p><strong>Address:</strong> 18 Elgin St, Brantford, ON N3R 1E5</p>
+    <p><strong>Phone:</strong> +1 437-991-5347</p>
+    <p><strong>Email:</strong> shahimahalbrantford@gmail.com</p>
+    <p><strong>Hours:</strong><br>
+      Mon–Thu: 11:30 AM – 10:00 PM<br>
+      Fri–Sat: 11:30 AM – 11:00 PM<br>
+      Sun: 12:00 PM – 10:00 PM
+    </p>
+    <p>We typically respond within 24 hours. For immediate assistance, please call us.</p>
+    <div class="map-container">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2898.306899646356!2d-80.265462!3d43.138088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882c6517ad1e1f7d%3A0x69de5e39d89f6b6b!2s18%20Elgin%20St%2C%20Brantford%2C%20ON%20N3R%201E5!5e0!3m2!1sen!2sca!4v1714593489653!5m2!1sen!2sca" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Shahi Mahal. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("mobileMenu").classList.toggle("show");
+    }
+  </script>
+</body>
+</html>
